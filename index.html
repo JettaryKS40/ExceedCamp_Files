@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+</head>
+
+<body>
+    <div id="container">
+      <textarea id="chat-list"></textarea>
+      <input id="message" />
+      <button id="btn-send">Send</button>
+    </div>
+
+    <script type="text/javascript">
+    var chatList = $('#chat-list');
+    var sendButton = $('#btn-send');
+    var messageInput = $('#message');
+
+    setInterval(function() {
+      $.ajax({
+        url: 'http://10.32.176.4/workshop/'
+      })
+      .done(function(data) {
+        chatList.html(data);
+      });
+    },1000);
+
+    sendButton.click(function() {
+      var message = messageInput.val();
+      $.ajax({
+        url: 'http://10.32.176.4/workshop/' + message
+      })
+      .done(function(data) {
+        alert('Success');
+      });
+    });
+    </script>
+</body>
+
+</html>
