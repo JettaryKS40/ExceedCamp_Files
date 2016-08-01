@@ -10,38 +10,76 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="index.css">
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+
 </head>
 
 <body>
-    <div id="container">
-      <textarea id="chat-list"></textarea>
-      <input id="message" />
-      <button id="btn-send">Send</button>
+    <div id="container" class="col-xs-6 col-xs-offset-3 col-md-6 ">
+
+      <div class="panel panel-success">
+        <div class="panel-heading"> CHAT ROOM</div>
+        <div class="panel-body">
+          <textarea disabled class="form-control" id="chat-list"></textarea>
+
+          <br />
+
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+              <span class="sr-only">100% Complete</span>
+            </div>
+          </div>
+
+          <input id="message" />
+          <button type="button" class="btn btn-success" id="btn-send">Send</button>
+        </div>
+      </div>
+
     </div>
 
     <script type="text/javascript">
     var chatList = $('#chat-list');
     var sendButton = $('#btn-send');
     var messageInput = $('#message');
+    var currentMessage = '';
+
+    messageInput.keydown(function(evt) {
+        if(evt.keyCode == 13) {
+          var message = messageInput.val();
+          var date = new Date();
+          var now = date.toUTCString();
+          $.ajax({
+            url: 'http://10.32.176.4/workshop/' + message + " - [" + now + "]"
+          })
+          .done(function(data) {
+            alert('Success');
+          });
+      }
+    });
 
     setInterval(function() {
       $.ajax({
         url: 'http://10.32.176.4/workshop/'
       })
       .done(function(data) {
-        chatList.html(data);
+        if(data !== currentMessage){
+          var oldChat = chatList.val()
+          chatList.html(oldChat + '\n' + data);
+          currentMessage = data;
+          chatList.scrollTop(chatList[0].scrollHeight);
+        }
       });
     },1000);
 
     sendButton.click(function() {
       var message = messageInput.val();
       $.ajax({
-        url: 'http://10.32.176.4/workshop/' + message
+        url: 'http://10.32.176.4/workshop/' + message + " - [" + now + "]"
       })
       .done(function(data) {
         alert('Success');
       });
     });
+
     </script>
 </body>
 
