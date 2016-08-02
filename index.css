@@ -1,7 +1,8 @@
-#chat-list {
+#avaliableCheck {
   height: 750px;
+  width: 500px;
+  font-size: 25px;
 }
-
 .panel {
   margin-top: 20px;
 }

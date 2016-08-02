@@ -10,76 +10,113 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="index.css">
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
 
 <body>
-  <div class="row">
-    <div id="container" class="col-xs-6 col-xs-offset-3 col-md-6 ">
-
-      <!-- <div class="panel panel-success">
-        <div class="panel-heading"> CHAT ROOM</div>
-          <div class="panel-body">
-            <textarea disabled class="form-control" id="chat-list"></textarea>
-            <br />
-            <div class="progress">
-              <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                <span class="sr-only">100% Complete</span>
-              </div>
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">VIP</button>
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">VIP Booking</h4>
             </div>
-          <input id="message" />
-          <button type="button" class="btn btn-success" id="btn-send">Send</button>
+            <div class="modal-body">
+
+              <div class="panel panel-primary">
+                <div class="panel-body">
+                <form class="navbar-form navbar-left">
+                  <p>Select between location from start to end</p>
+                    <div class="modal-body">
+
+                      <label for="sel1">Start</label>
+                      <select class="form-control" id="sel1">
+                        <option>Kasetsart University</option>
+                        <option>Kanchanaburi</option>
+                        <option>Space</option>
+                        <option>Underworld</option>
+                      </select>
+
+                      <label for="sel2">To</label>
+                      <select class="form-control" id="sel2">
+                        <option>Kasetsart University</option>
+                        <option>Kanchanaburi</option>
+                        <option>Space</option>
+                        <option>Underworld</option>
+                      </select>
+
+                    </div>
+                </form>
+                </div>
+              </div>
+              </br>
+              <div class="panel panel-success">
+                <div class="panel-body" class="col-md-6" style="text-align: center">
+                  <span id="avaliableCheck" class="label label-success">AVALIABLE</span>
+                </div>
+                <div class="panel-body" class="col-md-6 " style="text-align: center">
+                  <button type="button" id="reserveBtn" class="btn btn-primary">Reserve</button>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="submitVIP" class="btn btn-success">Submit</button>
+            </div>
+          </div>
         </div>
-      </div> -->
-
-    </div>
+      </div>
   </div>
-  <script src='bundle.js'></script>
-    <!-- <script type="text/javascript">
-    var chatList = $('#chat-list');
-    var sendButton = $('#btn-send');
-    var messageInput = $('#message');
-    var currentMessage = '';
-
-    messageInput.keydown(function(evt) {
-        if(evt.keyCode == 13) {
-          var message = messageInput.val();
-          var date = new Date();
-          var now = date.toUTCString();
-          $.ajax({
-            url: 'http://10.32.176.4/workshop/' + message + " - [" + now + "]"
-          })
-          .done(function(data) {
-            alert('Success');
-          });
-      }
-    });
-
-    setInterval(function() {
-      $.ajax({
-        url: 'http://10.32.176.4/workshop/'
-      })
-      .done(function(data) {
-        if(data !== currentMessage){
-          var oldChat = chatList.val()
-          chatList.html(oldChat + '\n' + data);
-          currentMessage = data;
-          chatList.scrollTop(chatList[0].scrollHeight);
-        }
-      });
-    },1000);
-
-    sendButton.click(function() {
-      var message = messageInput.val();
-      $.ajax({
-        url: 'http://10.32.176.4/workshop/' + message + " - [" + now + "]"
-      })
-      .done(function(data) {
-        alert('Success');
-      });
-    });
-
-    </script> -->
+</nav>
 </body>
+
+<script type="text/javascript">
+  var startPoint = $('#sel1');
+  var designatePoint = $('#sel2');
+
+  var busSeatCount = '';
+  var occupiedSeat = 15;
+  var emptySeat = 5;
+
+  $('#sel1').change(function() {
+    startPoint = $(this).val();
+    console.log(startPoint);
+  });
+
+  $('#sel2').change(function() {
+    designatePoint = $(this).val();
+    console.log(designatePoint);
+  });
+
+  $('#reserveBtn').click(function() {
+    if(emptySeat != 0) {
+      $(avaliableCheck).css('background-color','#6495ED');
+      document.getElementById('avaliableCheck').innerHTML = 'COMPLETE';
+      emptySeat -= 1;
+      occupiedSeat += 1;
+    }
+  });
+
+  if(emptySeat > 5) {
+    document.getElementById("reserveBtn").disabled = false;
+    $(avaliableCheck).css('background-color','#7FFF00');
+  }
+
+  if(emptySeat <= 5) {
+    $(avaliableCheck).css('background-color','#FF8C00');
+  }
+
+  if(emptySeat == 0){
+    $(avaliableCheck).css('background-color','#8B0000');
+    document.getElementById('avaliableCheck').innerHTML = 'FULL';
+    document.getElementById("reserveBtn").disabled = true;
+  }
+
+</script>
 
 </html>
