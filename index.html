@@ -8,115 +8,91 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="index.css">
+    <!-- <link rel="stylesheet" href="/index.css"> -->
+    <link href='https://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="/stylesheets/jquery.combinedScroll.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/LoadGo/2.1/loadgo.min.js"></script>
 
 </head>
 
+
 <body>
-  <nav class="navbar navbar-default">
-  <div class="container-fluid">
-      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">VIP</button>
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">VIP Booking</h4>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Grow Box</a>
             </div>
-            <div class="modal-body">
-
-              <div class="panel panel-primary">
-                <div class="panel-body">
-                <form class="navbar-form navbar-left">
-                  <p>Select between location from start to end</p>
-                    <div class="modal-body">
-
-                      <label for="sel1">Start</label>
-                      <select class="form-control" id="sel1">
-                        <option>Kasetsart University</option>
-                        <option>Kanchanaburi</option>
-                        <option>Space</option>
-                        <option>Underworld</option>
-                      </select>
-
-                      <label for="sel2">To</label>
-                      <select class="form-control" id="sel2">
-                        <option>Kasetsart University</option>
-                        <option>Kanchanaburi</option>
-                        <option>Space</option>
-                        <option>Underworld</option>
-                      </select>
-
-                    </div>
-                </form>
-                </div>
-              </div>
-              </br>
-              <div class="panel panel-success">
-                <div class="panel-body" class="col-md-6" style="text-align: center">
-                  <span id="avaliableCheck" class="label label-success">AVALIABLE</span>
-                </div>
-                <div class="panel-body" class="col-md-6 " style="text-align: center">
-                  <button type="button" id="reserveBtn" class="btn btn-primary">Reserve</button>
-                </div>
-              </div>
-
-            </div>
-            <div class="modal-footer">
-              <button type="button" id="submitVIP" class="btn btn-success">Submit</button>
-            </div>
-          </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#home">Home</a></li>
+                <li><a href="#section-one">Control Panel</a></li>
+                <li><a href="#section-two">Progression</a></li>
+                <li><a href="#section-three">Data Analytic</a></li>
+            </ul>
         </div>
-      </div>
-  </div>
-</nav>
+    </nav>
+
+
+    <div id="section-one" class="gd-section pad-large">
+        <!-- <div id="divProgress"></div> -->
+        <div class="gd-center">
+            <!-- <h1>Section One</h1> -->
+            <p></p>
+        </div>
+
+        <div id="section-two" class="gd-section pad-large">
+            </br>
+            </br>
+            <div class=" col-md-6 col-md-offset-3 ">
+                <h1></h1>
+                <div class="panel panel-default col-md-8 col-md-offset-2 ">
+                    <div class="panel-body">
+                        <img src="/assets/plant.png" id="plant-img"></img>
+                        <button id="clickPant">click</button>
+                        <span class="label label-primary" id="progressLabel">0%</span>
+                    </div>
+                </div>
+
+                <div id="section-three" class="gd-section pad-large">
+                    <div class="gd-center">
+                        <!-- <h1>Section Three</h1> -->
+                        <p></p>
+                    </div>
+
+                    <script type="text/javascript">
+                        var start = 0;
+
+                        //jQuery
+                        $("#plant-img").load(function() {
+                            $('#plant-img').loadgo({
+                                'direction': 'bt'
+                            });
+                        }).each(function() {
+                            if (this.complete) $(this).load();
+                        });
+
+                        $('#clickPant').click(function() {
+
+                            if (start >= 100) {
+                                start = -10;
+                            }
+
+                            start += 10;
+                            console.log(start);
+                            $('#plant-img').loadgo('setprogress', start);
+                            $('#progressLabel').text(start + "%");
+
+                        });
+
+                        jQuery(document).ready(function($) {
+
+                            // Hook up the current state to the nav bar
+                            $('.page-navigation').onePageNav();
+
+                        });
+                    </script>
+
 </body>
-
-<script type="text/javascript">
-  var startPoint = $('#sel1');
-  var designatePoint = $('#sel2');
-
-  var busSeatCount = '';
-  var occupiedSeat = 15;
-  var emptySeat = 5;
-
-  $('#sel1').change(function() {
-    startPoint = $(this).val();
-    console.log(startPoint);
-  });
-
-  $('#sel2').change(function() {
-    designatePoint = $(this).val();
-    console.log(designatePoint);
-  });
-
-  $('#reserveBtn').click(function() {
-    if(emptySeat != 0) {
-      $(avaliableCheck).css('background-color','#6495ED');
-      document.getElementById('avaliableCheck').innerHTML = 'COMPLETE';
-      emptySeat -= 1;
-      occupiedSeat += 1;
-    }
-  });
-
-  if(emptySeat > 5) {
-    document.getElementById("reserveBtn").disabled = false;
-    $(avaliableCheck).css('background-color','#7FFF00');
-  }
-
-  if(emptySeat <= 5) {
-    $(avaliableCheck).css('background-color','#FF8C00');
-  }
-
-  if(emptySeat == 0){
-    $(avaliableCheck).css('background-color','#8B0000');
-    document.getElementById('avaliableCheck').innerHTML = 'FULL';
-    document.getElementById("reserveBtn").disabled = true;
-  }
-
-</script>
 
 </html>
