@@ -1,3 +1,4 @@
+<<<<<<< bfc0a31bc37ad04f514615c134018e0e4bc71a7a
 var ReactDOM = require("react-dom");
 // var currentMessage = '';
 // var HelloWorld = React.createClass({
@@ -73,6 +74,25 @@ var ReactDOM = require("react-dom");
 });
 
 module.exports = HelloWorld;
+=======
+var React = require("react");
+var ReactDOM = require("react-dom");
+
+(function() {
+  'use strict';
+
+    module.exports = React.createClass({
+      render: function() {
+        return (
+          <div>
+            <h1>Hello World</h1>
+          </div>
+        );
+      }
+    });
+
+}());
+>>>>>>> initial project
 
 var Wrapper = require('./wrapper.jsx');
 ReactDOM.render(<Wrapper/>, document.getElementById("container"));
